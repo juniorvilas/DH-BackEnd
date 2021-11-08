@@ -33,7 +33,10 @@ public class ConfiguracaoJDBC {
                 Connection connection = null;
                 try {
                         connection = DriverManager.getConnection(
-                                dbUrl, nomeUsuario, senhaUsuario);
+                                dbUrl,
+                                nomeUsuario,
+                                senhaUsuario
+                        );
                 }
                 catch (SQLException e){
                         e.printStackTrace();

@@ -40,8 +40,10 @@ public class PacienteDaoH2 implements IDao<Paciente> {
         paciente.setEndereco(enderecoDaoH2.salvar(paciente.getEndereco()));
         String query = String.format("INSERT INTO PACIENTE " +
                         "(NOME, SOBRENOME, RG, DATA_CADASTRO, ENDERECO_ID) " +
-                        "VALUES ('%s','%s','%s','%s','%s')", paciente.getNome(),
-                paciente.getSobrenome(), paciente.getRg(),
+                        "VALUES ('%s','%s','%s','%s','%s')",
+                paciente.getNome(),
+                paciente.getSobrenome(),
+                paciente.getRg(),
                 Util.dateToTimestamp(paciente.getDataCadastro()),
                 paciente.getEndereco().getId());
         try {

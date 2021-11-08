@@ -20,12 +20,15 @@ public class EnderecoDaoH2  implements IDao<Endereco> {
         this.configuracaoJDBC = new ConfiguracaoJDBC();
     }
 
+    // Método salvar
     @Override
     public Endereco salvar(Endereco endereco) {
         Connection conexao = configuracaoJDBC.conectarComBancoDeDados();
         Statement stmt = null;
-        String query = String.format("INSERT INTO ENDERECO (RUA ,NUMERO, CIDADE, BAIRRO) VALUES ('%s','%s','%s','%s')", endereco.getRua(),
-                endereco.getNumero(), endereco.getCidade(), endereco.getBairro());
+        String query = String.format(
+                "INSERT INTO ENDERECO (RUA ,NUMERO, CIDADE, BAIRRO) VALUES ('%s','%s','%s','%s')",
+                endereco.getRua(), endereco.getNumero(),
+                endereco.getCidade(), endereco.getBairro());
         try {
             stmt = conexao.createStatement();
             stmt.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
@@ -34,7 +37,9 @@ public class EnderecoDaoH2  implements IDao<Endereco> {
                 endereco.setId(keys.getInt(1));
             stmt.close();
             conexao.close();
-        } catch (SQLException throwables) {
+
+        }
+        catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return endereco;
@@ -49,18 +54,22 @@ public class EnderecoDaoH2  implements IDao<Endereco> {
         try {
             stmt = conexao.createStatement();
             ResultSet resultado = stmt.executeQuery(query);
+
             while (resultado.next()) {
                 endereco = criarObjetoEndereco(resultado);
             }
 
             stmt.close();
             conexao.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        // Aqui um IF reduzido
         return  endereco != null ? Optional.of(endereco) : Optional.empty();
     }
 
+    // Método excluir
     @Override
     public void excluir(Integer id) {
         Connection conexao = configuracaoJDBC.conectarComBancoDeDados();
@@ -76,7 +85,7 @@ public class EnderecoDaoH2  implements IDao<Endereco> {
         }
 
     }
-
+    // Método buscarTodos
     @Override
     public List<Endereco> buscarTodos() {
         Connection conexao = configuracaoJDBC.conectarComBancoDeDados();
@@ -100,7 +109,7 @@ public class EnderecoDaoH2  implements IDao<Endereco> {
 
         return enderecos;
     }
-
+    // Método criarObjetoEndereco
     private Endereco criarObjetoEndereco(ResultSet resultado) throws SQLException {
         Integer id = resultado.getInt("ID");
         String rua = resultado.getString("RUA");
