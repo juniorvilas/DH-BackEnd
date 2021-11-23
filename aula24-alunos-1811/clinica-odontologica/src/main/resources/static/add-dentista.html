@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Modulo Dentistas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/update_dentista.js"></script>
+    <script type="text/javascript" src="/js/delete_dentista.js"></script>
+    <script type="text/javascript" src="/js/get_dentista.js"></script>
+    <script type="text/javascript" src="/js/post_dentista.js"></script>
+
+
+</head>
+<body>
+
+    <div class="container mt-3"> <!-- Inicio container -->
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="/dentistas.html">Todos os Dentistas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+        </ul>
+        <hr />
+
+        <div class="row">
+            <div class="col-sm-8" style="background-color: gray;
+             padding: 10px; border-radius: 8px;">
+                <h3>Adicionar dentistas</h3>
+                <form id="add_new_dentista">
+                    <div class="form-group">
+                        <label class="control-label" for="nome">Nome:</label>
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Insira seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="sobrenome">Sobrenome:</label>
+                        <input type="text" class="form-control" id="sobrenome" name="sobrenome" placeholder="Insira seu sobrenome" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="matricula">Matricula:</label>
+                        <input type="text" class="form-control" id="matricula" name="matricula" placeholder="Insira sua matricula" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger">Enviar</button>
+
+                </form>
+
+                <div id="response" style="display: none; margin-top: 10px;"></div>
+
+            </div>
+        </div>
+
+    </div> <!-- Fecha container -->
+
+
+
+
+
+</body>
+</html>

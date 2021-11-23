@@ -10,6 +10,9 @@ public class Endereco {
     private String bairro;
     private String cidade;
 
+
+    public Endereco(){}
+
     // Construtor c/ todos parametros
     public Endereco(Integer id, String rua, String numero, String bairro, String cidade) {
         this.id = id;
@@ -20,7 +23,6 @@ public class Endereco {
     }
 
     // Construtor sem ID
-
     public Endereco(String rua, String numero, String bairro, String cidade) {
         this.rua = rua;
         this.numero = numero;

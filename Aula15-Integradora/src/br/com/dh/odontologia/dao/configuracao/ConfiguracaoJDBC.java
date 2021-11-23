@@ -26,6 +26,7 @@ public class ConfiguracaoJDBC {
                 this.dbUrl = "jdbc:h2:~/clinica;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'create.sql'";
                 this.nomeUsuario = "sa";
                 this.senhaUsuario = "";
+                //jdbc:h2:mem
         }
 
         //Método para conectar no Banco de Dados

@@ -5,8 +5,8 @@ import java.util.Optional;
 
 public interface IDao<T> {
 
-    public T salvar(T t);
-    public Optional<T> buscar(Integer id);
-    public void excluir(Integer id);
-    public List<T> buscarTodos();
+    T salvar(T t);
+    Optional<T> buscar(Integer id);
+    void excluir(Integer id);
+    List<T> buscarTodos();
 }
