@@ -2,37 +2,41 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Endereco;
 import com.example.demo.repository.IDao;
+import com.example.demo.repository.IEnderecoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EnderecoService {
+public class EnderecoService implements IDao<Endereco>{
 
-    private IDao<Endereco> enderecoDao;
+    private final IEnderecoRepository iEnderecoRepository;
 
-    public EnderecoService(IDao<Endereco> enderecoDao) {
-        this.enderecoDao = enderecoDao;
+    public EnderecoService(IEnderecoRepository iEnderecoRepository) {
+        this.iEnderecoRepository = iEnderecoRepository;
     }
 
-
+    @Override
     public Endereco salvar(Endereco e){
-        enderecoDao.salvar(e);
+        iEnderecoRepository.save(e);
         return e;
     }
+    @Override
     public Optional<Endereco> buscar(Integer id){
-        return enderecoDao.buscar(id);
+        return iEnderecoRepository.findById(id);
     }
+    @Override
     public List<Endereco> buscarTodos(){
-        return enderecoDao.buscarTodos();
+        return iEnderecoRepository.findAll();
     }
+    @Override
     public void excluir(Integer id){
-        enderecoDao.excluir(id);
+        iEnderecoRepository.deleteById(id);
     }
-
+    @Override
     public Endereco atualizar(Endereco e) {
-        return enderecoDao.atualizar(e);
+        return iEnderecoRepository.save(e);
     }
 
 

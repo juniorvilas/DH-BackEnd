@@ -1,31 +1,42 @@
 package com.example.demo.entity;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table
 public class Endereco {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String rua;
     private String numero;
     private String cidade;
     private String estado;
+    @OneToMany(mappedBy = "endereco", fetch = FetchType.LAZY)
+    private Set<Paciente> paciente = new HashSet<>();
 
 
     public Endereco() {
     }
 
-    public Endereco(Integer id, String rua, String numero, String cidade, String estado) {
+    public Endereco(String rua, String numero, String cidade, String estado, Set<Paciente> paciente) {
+        this.rua = rua;
+        this.numero = numero;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.paciente = paciente;
+    }
+
+    public Endereco(Integer id, String rua, String numero, String cidade, String estado, Set<Paciente> paciente) {
         this.id = id;
         this.rua = rua;
         this.numero = numero;
         this.cidade = cidade;
         this.estado = estado;
-    }
-
-
-    public Endereco(String rua, String numero, String cidade, String estado) {
-        this.rua = rua;
-        this.numero = numero;
-        this.cidade = cidade;
-        this.estado = estado;
+        this.paciente = paciente;
     }
 
     public Integer getId() {
@@ -68,14 +79,11 @@ public class Endereco {
         this.estado = estado;
     }
 
-    @Override
-    public String toString() {
-        return "Endereco{" +
-                "id=" + id +
-                ", rua='" + rua + '\'' +
-                ", numero='" + numero + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", estado='" + estado + '\'' +
-                '}';
+    public Set<Paciente> getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Set<Paciente> paciente) {
+        this.paciente = paciente;
     }
 }

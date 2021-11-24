@@ -1,30 +1,45 @@
 package com.example.demo.entity;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table
 public class Dentista {
 
     //Atributos
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String sobrenome;
     private Integer matricula;
+    @OneToMany(mappedBy = "dentista", fetch = FetchType.LAZY)
+    private Set<Consulta> consulta = new HashSet<>();
 
     //Contrutor Padrao vazio
     public Dentista() {
     }
 
     //Construtor com ID
-    public Dentista(Integer id, String nome, String sobrenome, Integer matricula) {
+
+    public Dentista(Integer id, String nome, String sobrenome, Integer matricula, Set<Consulta> consulta) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.matricula = matricula;
+        this.consulta = consulta;
     }
 
     //Construtor sem ID
-    public Dentista(String nome, String sobrenome, Integer matricula) {
+
+
+    public Dentista(String nome, String sobrenome, Integer matricula, Set<Consulta> consulta) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.matricula = matricula;
+        this.consulta = consulta;
     }
 
     public Integer getId() {
@@ -59,13 +74,11 @@ public class Dentista {
         this.matricula = matricula;
     }
 
-    @Override
-    public String toString() {
-        return "Dentista{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", sobrenome='" + sobrenome + '\'' +
-                ", matricula=" + matricula +
-                '}';
+    public Set<Consulta> getConsulta() {
+        return consulta;
+    }
+
+    public void setConsulta(Set<Consulta> consulta) {
+        this.consulta = consulta;
     }
 }

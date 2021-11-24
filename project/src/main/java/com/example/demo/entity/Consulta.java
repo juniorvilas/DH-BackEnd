@@ -1,16 +1,23 @@
 package com.example.demo.entity;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Date;
 
-
+@Entity
+@Table
 public class Consulta {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Paciente paciente;
-    private Dentista dentista;
-    private Usuario usuario;
     private Date date;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "dentista_id")
+    private Dentista dentista;
+    @JoinColumn(name = "paciente")
+    private Paciente paciente;
+    @JoinColumn(name = "usuario")
+    private Usuario usuario;
 
     public Consulta() {
     }
@@ -23,12 +30,12 @@ public class Consulta {
         this.id = id;
     }
 
-    public Paciente getPaciente() {
-        return paciente;
+    public Date getDate() {
+        return date;
     }
 
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Dentista getDentista() {
@@ -39,12 +46,12 @@ public class Consulta {
         this.dentista = dentista;
     }
 
-    public Date getDate() {
-        return date;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     public Usuario getUsuario() {
@@ -53,16 +60,5 @@ public class Consulta {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    @Override
-    public String toString() {
-        return "Consulta{" +
-                "id=" + id +
-                ", paciente=" + paciente +
-                ", dentista=" + dentista +
-                ", usuario=" + usuario +
-                ", date=" + date +
-                '}';
     }
 }

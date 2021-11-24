@@ -1,21 +1,30 @@
 package com.example.demo.entity;
 
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
+@Table
 public class Paciente {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String sobrenome;
     private String cpf;
     private Date dataCadastro;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
     public Paciente() {
     }
 
-    public Paciente(Integer id, String nome, String sobrenome, String cpf, Date dataCadastro, Endereco endereco) {
-        this.id = id;
+    public Paciente(String nome, String sobrenome, String cpf, Date dataCadastro, Endereco endereco) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
@@ -23,7 +32,8 @@ public class Paciente {
         this.endereco = endereco;
     }
 
-    public Paciente(String nome, String sobrenome, String cpf, Date dataCadastro, Endereco endereco) {
+    public Paciente(Integer id, String nome, String sobrenome, String cpf, Date dataCadastro, Endereco endereco) {
+        this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
@@ -77,17 +87,5 @@ public class Paciente {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
-    }
-
-    @Override
-    public String toString() {
-        return "Paciente{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", sobrenome='" + sobrenome + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", dataCadastro=" + dataCadastro +
-                ", endereco=" + endereco +
-                '}';
     }
 }
