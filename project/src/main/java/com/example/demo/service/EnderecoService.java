@@ -1,42 +1,46 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Endereco;
-import com.example.demo.repository.IDao;
 import com.example.demo.repository.IEnderecoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import org.apache.log4j.Logger;
 
 @Service
-public class EnderecoService implements IDao<Endereco>{
+public class EnderecoService {
 
-    private final IEnderecoRepository iEnderecoRepository;
+    @Autowired
+    private IEnderecoRepository iEnderecoRepository;
 
-    public EnderecoService(IEnderecoRepository iEnderecoRepository) {
-        this.iEnderecoRepository = iEnderecoRepository;
+    final static Logger log = Logger.getLogger(EnderecoService.class);
+
+    public Endereco salvar(Endereco endereco){
+        log.debug("Registrando novo Endereço!");
+        iEnderecoRepository.save(endereco);
+        return endereco;
     }
 
-    @Override
-    public Endereco salvar(Endereco e){
-        iEnderecoRepository.save(e);
-        return e;
-    }
-    @Override
     public Optional<Endereco> buscar(Integer id){
+        log.debug("Buscando Endereço com ID: "+ id);
         return iEnderecoRepository.findById(id);
     }
-    @Override
+
     public List<Endereco> buscarTodos(){
+        log.debug("Buscando todos Endereços");
         return iEnderecoRepository.findAll();
     }
-    @Override
+
     public void excluir(Integer id){
+        log.debug("Excluindo Endereço com ID: "+ id);
         iEnderecoRepository.deleteById(id);
     }
-    @Override
-    public Endereco atualizar(Endereco e) {
-        return iEnderecoRepository.save(e);
+
+    public Endereco atualizar(Endereco endereco) {
+        log.debug("Atualizando Endereço!");
+        return iEnderecoRepository.save(endereco);
     }
 
 

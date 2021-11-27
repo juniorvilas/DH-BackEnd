@@ -2,39 +2,49 @@ package com.example.demo.service;
 
 
 import com.example.demo.entity.Usuario;
-import com.example.demo.repository.IDao;
+import com.example.demo.repository.IUsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 import java.util.Optional;
+import org.apache.log4j.Logger;
 
 @Service
 public class UsuarioService {
 
-    private IDao<Usuario> usuarioIDao;
+    @Autowired
+    private IUsuarioRepository iUsuarioRepository;
 
-    public UsuarioService(IDao<Usuario> usuarioIDao) {
-        this.usuarioIDao = usuarioIDao;
+    final static Logger log = Logger.getLogger(UsuarioService.class);
+
+    public Usuario salvar(Usuario usuario) {
+        log.debug("Registrando Usuario: " + usuario.toString());
+        return iUsuarioRepository.save(usuario);
     }
 
-    public Usuario registrarUsuario(Usuario usuario) {
-        return usuarioIDao.salvar(usuario);
-    }
 
     public void excluir(Integer id){
-        usuarioIDao.excluir(id);
+        log.debug("Excluindo Usuario com ID: "+ id);
+        iUsuarioRepository.deleteById(id);
     }
+
 
     public Optional<Usuario> buscar(Integer id){
-        return usuarioIDao.buscar(id);
+        log.debug("Buscando Usuario com ID: "+ id);
+        return iUsuarioRepository.findById(id);
     }
+
 
     public List<Usuario> buscarTodos(){
-        return usuarioIDao.buscarTodos();
+        log.debug("Buscando todos Usuarios");
+        return iUsuarioRepository.findAll();
     }
 
+
     public Usuario atualizar(Usuario usuario){
-        return usuarioIDao.atualizar(usuario);
+        log.debug("Atualizando Usuario: " + usuario.toString());
+        return iUsuarioRepository.save(usuario);
     }
 }

@@ -1,45 +1,53 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Paciente;
-import com.example.demo.repository.IDao;
+import com.example.demo.repository.IEnderecoRepository;
 import com.example.demo.repository.IPacienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import org.apache.log4j.Logger;
 
 @Service
-public class PacienteService implements IDao<Paciente>{
+public class PacienteService {
 
-    private final IPacienteRepository iPacienteRepository;
+    @Autowired
+    private IPacienteRepository iPacienteRepository;
 
-    public PacienteService(IPacienteRepository iPacienteRepository) {
-        this.iPacienteRepository = iPacienteRepository;
+    @Autowired
+    private IEnderecoRepository iEnderecoRepository;
+
+    final static Logger log = Logger.getLogger(PacienteService.class);
+
+    public Paciente salvar(Paciente paciente) {
+        log.debug("Registrando Paciente: " + paciente.toString());
+        paciente.setDataCadastro(new Date());
+        return iPacienteRepository.save(paciente);
     }
 
-    @Override
-    public Paciente salvar(Paciente p) {
-        p.setDataCadastro(new Date());
-        return iPacienteRepository.save(p);
-    }
-
-    @Override
     public Optional<Paciente> buscar(Integer id) {
+        log.debug("Buscando paciente com ID: "+ id);
         return iPacienteRepository.findById(id);
     }
-    @Override
+
     public List<Paciente> buscarTodos() {
+        log.debug("Buscando todos Pacientes");
         return iPacienteRepository.findAll();
     }
 
-    @Override
+
     public void excluir(Integer id) {
+        log.debug("Excluindo paciente com ID: "+ id);
         iPacienteRepository.deleteById(id);
     }
-    @Override
-    public Paciente atualizar(Paciente p) {
-        return iPacienteRepository.save(p);
+
+    public Paciente atualizar(Paciente paciente) {
+        log.debug("Atualizando Paciente: " + paciente.toString());
+        paciente.setDataCadastro(new Date());
+        return iPacienteRepository.save(paciente);
     }
 
 

@@ -1,13 +1,16 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table
-public class Paciente {
+public class Paciente implements Serializable {
 
 
     @Id
@@ -17,13 +20,17 @@ public class Paciente {
     private String sobrenome;
     private String cpf;
     private Date dataCadastro;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
+
+    @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
+    private Set<Consulta> consultas = new HashSet<>();
 
     public Paciente() {
     }
 
+    //sem ID
     public Paciente(String nome, String sobrenome, String cpf, Date dataCadastro, Endereco endereco) {
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -32,6 +39,7 @@ public class Paciente {
         this.endereco = endereco;
     }
 
+    //com ID
     public Paciente(Integer id, String nome, String sobrenome, String cpf, Date dataCadastro, Endereco endereco) {
         this.id = id;
         this.nome = nome;
@@ -87,5 +95,18 @@ public class Paciente {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public Set<Consulta> getConsultas() {
+        return consultas;
+    }
+
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                '}';
     }
 }

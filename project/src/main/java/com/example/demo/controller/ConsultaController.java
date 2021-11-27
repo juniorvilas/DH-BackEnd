@@ -1,12 +1,8 @@
 package com.example.demo.controller;
 
-
-
+import com.example.demo.dto.ConsultaDTO;
 import com.example.demo.entity.Consulta;
 import com.example.demo.service.ConsultaService;
-import com.example.demo.service.DentistaService;
-import com.example.demo.service.PacienteService;
-import com.example.demo.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,37 +14,34 @@ import java.util.List;
 @RequestMapping("/consultas")
 public class ConsultaController {
 
-
-
     @Autowired
     private ConsultaService consultaService;
-    private PacienteService pacienteService;
-    private DentistaService dentistaService;
-    private UsuarioService usuarioService;
 
     //CREATE
+
     @PostMapping
-    public ResponseEntity<Consulta> registrarConsulta(@RequestBody Consulta consulta) {
-        ResponseEntity<Consulta> response;
-        if (pacienteService.buscar(consulta.getPaciente().getId()).isPresent() &&
-                dentistaService.buscar(consulta.getDentista().getId()).isPresent() && usuarioService.buscar(consulta.getUsuario().getId()).isPresent())
-            response = ResponseEntity.ok(consultaService.registrarConsulta(consulta));
-
-        else
-            response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-
-        return response;
-
+    public ResponseEntity<Consulta> salvar(@RequestBody ConsultaDTO consultaDto) {
+//        consultaService.salvar(consultaDto);
+//        return new ResponseEntity<>(HttpStatus.OK);
+        Consulta consulta = consultaService.salvar(consultaDto);
+        return new ResponseEntity<>(consulta, HttpStatus.CREATED);
 
     }
+
     //READ
+    @GetMapping("/{id}")
+    public ResponseEntity<Consulta> buscar(@PathVariable Integer id) {
+        Consulta consulta = consultaService.buscar(id).orElse(null);
+
+        return ResponseEntity.ok(consulta);
+    }
     @GetMapping
-    public ResponseEntity<List<Consulta>> listar() {
-        return ResponseEntity.ok(consultaService.listar());
+    public ResponseEntity<List<Consulta>> buscarTodos() {
+        return ResponseEntity.ok(consultaService.buscarTodos());
     }
     //DELETE
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminar(@PathVariable Integer id) {
+    public ResponseEntity<String> excluir(@PathVariable Integer id) {
         ResponseEntity<String> response;
         if (consultaService.buscar(id).isPresent()) {
             consultaService.excluir(id);
@@ -60,8 +53,9 @@ public class ConsultaController {
     }
     //UPDATE
     @PutMapping
-    public ResponseEntity<Consulta> atualizarConsulta(@RequestBody Consulta consulta) {
-        return ResponseEntity.ok(consultaService.atualizar(consulta));
+    public ResponseEntity<Consulta> atualizar(@RequestBody ConsultaDTO consultaDto) {
+        consultaService.salvar(consultaDto);
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
 

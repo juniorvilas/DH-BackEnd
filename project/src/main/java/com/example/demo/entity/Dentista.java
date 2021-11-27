@@ -15,31 +15,20 @@ public class Dentista {
     private String nome;
     private String sobrenome;
     private Integer matricula;
+
     @OneToMany(mappedBy = "dentista", fetch = FetchType.LAZY)
-    private Set<Consulta> consulta = new HashSet<>();
+    private Set<Consulta> consultas = new HashSet<>();
 
     //Contrutor Padrao vazio
     public Dentista() {
     }
 
-    //Construtor com ID
-
-    public Dentista(Integer id, String nome, String sobrenome, Integer matricula, Set<Consulta> consulta) {
-        this.id = id;
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.matricula = matricula;
-        this.consulta = consulta;
-    }
-
     //Construtor sem ID
-
-
-    public Dentista(String nome, String sobrenome, Integer matricula, Set<Consulta> consulta) {
+    public Dentista(String nome, String sobrenome, Integer matricula) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.matricula = matricula;
-        this.consulta = consulta;
+
     }
 
     public Integer getId() {
@@ -74,11 +63,18 @@ public class Dentista {
         this.matricula = matricula;
     }
 
-    public Set<Consulta> getConsulta() {
-        return consulta;
+    public Set<Consulta> getConsultas() {
+        return consultas;
     }
 
-    public void setConsulta(Set<Consulta> consulta) {
-        this.consulta = consulta;
+    @Override
+    public String toString() {
+        return "Dentista{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", matricula=" + matricula +
+                ", consultas=" + consultas +
+                '}';
     }
 }

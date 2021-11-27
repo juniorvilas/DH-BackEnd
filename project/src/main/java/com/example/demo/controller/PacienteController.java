@@ -17,10 +17,10 @@ public class PacienteController {
     @Autowired
     private PacienteService pacienteService;
 
-    //CREATE
-    @PostMapping()
-    public ResponseEntity<Paciente> registrarPaciente(@RequestBody Paciente paciente) {
 
+    //CREATE
+    @PostMapping
+    public ResponseEntity<Paciente> salvar(@RequestBody Paciente paciente) {
         return ResponseEntity.ok(pacienteService.salvar(paciente));
 
     }

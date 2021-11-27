@@ -18,30 +18,32 @@ public class Usuario {
     private String senha;
     private Integer acesso;
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-    private Set<Consulta> consulta = new HashSet<>();
+    private Set<Consulta> consultas = new HashSet<>();
 
     //VAZIO
     public Usuario() {
     }
 
+    //Contrutor sem ID
+    public Usuario(String nome, String email, String senha, Integer acesso) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.acesso = acesso;
+
+    }
+
     //Construtor com ID
-    public Usuario(Integer id, String nome, String email, String senha, Integer acesso, Set<Consulta> consulta) {
+    public Usuario(Integer id, String nome, String email, String senha, Integer acesso) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.acesso = acesso;
-        this.consulta = consulta;
+
     }
 
-    //Contrutor sem ID
-    public Usuario(String nome, String email, String senha, Integer acesso, Set<Consulta> consulta) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.acesso = acesso;
-        this.consulta = consulta;
-    }
+
 
     public Integer getId() {
         return id;
@@ -83,11 +85,17 @@ public class Usuario {
         this.acesso = acesso;
     }
 
-    public Set<Consulta> getConsulta() {
-        return consulta;
+    public Set<Consulta> getConsultas() {
+        return consultas;
     }
 
-    public void setConsulta(Set<Consulta> consulta) {
-        this.consulta = consulta;
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", acesso=" + acesso +
+                '}';
     }
 }

@@ -1,41 +1,47 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Dentista;
-import com.example.demo.repository.IDao;
+import com.example.demo.repository.IDentistaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import org.apache.log4j.Logger;
 
-@Service// Comunica com respositorio DentistaDaoH2
+@Service
 public class DentistaService {
 
-    private IDao<Dentista> dentistaIDao;
+    @Autowired
+    private IDentistaRepository iDentistaRepository;
 
-    public DentistaService(IDao<Dentista> dentistaIDao) {
-        this.dentistaIDao = dentistaIDao;
+    final static Logger log = Logger.getLogger(DentistaService.class);
+
+
+    public Dentista salvar(Dentista dentista) {
+        log.debug("Registrando Dentista: " + dentista.toString());
+        return iDentistaRepository.save(dentista);
     }
 
-    public Dentista registrarDentista(Dentista dentista) {
-        return dentistaIDao.salvar(dentista);
-    }
 
     public void excluir(Integer id) {
-        dentistaIDao.excluir(id);
+        log.debug("Excluindo Dentista com ID: "+ id);
+        iDentistaRepository.deleteById(id);
     }
 
     public Optional<Dentista> buscar(Integer id) {
-
-        return dentistaIDao.buscar(id);
+        log.debug("Buscando Dentista com ID: "+ id);
+        return iDentistaRepository.findById(id);
     }
 
     public List<Dentista> buscarTodos() {
-
-        return dentistaIDao.buscarTodos();
+        log.debug("Buscando todos Dentistas");
+        return iDentistaRepository.findAll();
     }
 
     public Dentista atualizar(Dentista dentista) {
-        return dentistaIDao.atualizar(dentista);
+        log.debug("Atualizando Dentista: " + dentista.toString());
+        return iDentistaRepository.save(dentista);
     }
 
 }

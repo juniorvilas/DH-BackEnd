@@ -1,12 +1,15 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table
-public class Endereco {
+public class Endereco implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,28 +18,21 @@ public class Endereco {
     private String numero;
     private String cidade;
     private String estado;
-    @OneToMany(mappedBy = "endereco", fetch = FetchType.LAZY)
-    private Set<Paciente> paciente = new HashSet<>();
+
+    @OneToMany(mappedBy = "endereco")
+    @JsonIgnore// Para não gerar loop
+    private Set<Paciente> pacientes = new HashSet<>();
 
 
     public Endereco() {
     }
 
-    public Endereco(String rua, String numero, String cidade, String estado, Set<Paciente> paciente) {
+    public Endereco(String rua, String numero, String cidade, String estado) {
         this.rua = rua;
         this.numero = numero;
         this.cidade = cidade;
         this.estado = estado;
-        this.paciente = paciente;
-    }
 
-    public Endereco(Integer id, String rua, String numero, String cidade, String estado, Set<Paciente> paciente) {
-        this.id = id;
-        this.rua = rua;
-        this.numero = numero;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.paciente = paciente;
     }
 
     public Integer getId() {
@@ -79,11 +75,8 @@ public class Endereco {
         this.estado = estado;
     }
 
-    public Set<Paciente> getPaciente() {
-        return paciente;
+    public Set<Paciente> getPacientes() {
+        return pacientes;
     }
 
-    public void setPaciente(Set<Paciente> paciente) {
-        this.paciente = paciente;
-    }
 }
