@@ -56,6 +56,7 @@ public class UsuarioController {
 
         return response;
     }
+    //FIND ALL
     @GetMapping
     public ResponseEntity<List<Usuario>> buscarTodos(){
         return ResponseEntity.ok(usuarioService.buscarTodos());

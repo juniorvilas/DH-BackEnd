@@ -30,7 +30,7 @@ public class Dentista {
         this.matricula = matricula;
 
     }
-
+    //GETTERS AND SETTERS
     public Integer getId() {
         return id;
     }

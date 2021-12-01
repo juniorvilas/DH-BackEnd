@@ -59,7 +59,7 @@ public class PacienteController {
 
         return response;
     }
-
+    //FIND ALL
     @GetMapping
     public ResponseEntity<List<Paciente>> buscarTodos(){
         return ResponseEntity.ok(pacienteService.buscarTodos());

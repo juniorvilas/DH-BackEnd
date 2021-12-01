@@ -1,17 +1,13 @@
-package com.example.demo;
+package com.mongodb.aula33;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProjectApplication {
+public class Aula33Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProjectApplication.class, args);
-
-
-
-
+		SpringApplication.run(Aula33Application.class, args);
 	}
 
 }

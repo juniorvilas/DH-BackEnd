@@ -23,10 +23,10 @@ public class Endereco implements Serializable {
     @JsonIgnore// Para não gerar loop
     private Set<Paciente> pacientes = new HashSet<>();
 
-
+    //CONSTRUTOR VAZIO
     public Endereco() {
     }
-
+    //CONSTRUTOR SEM ID
     public Endereco(String rua, String numero, String cidade, String estado) {
         this.rua = rua;
         this.numero = numero;
@@ -34,7 +34,7 @@ public class Endereco implements Serializable {
         this.estado = estado;
 
     }
-
+    //GETTERS AND SETTERS
     public Integer getId() {
         return id;
     }

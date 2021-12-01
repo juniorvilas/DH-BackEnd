@@ -16,7 +16,6 @@ public class DentistaController {
     @Autowired
     private DentistaService dentistaService;
 
-
     //CREATE
     @PostMapping()
     public ResponseEntity<Dentista> registrarOdontologo(@RequestBody Dentista dentista){
@@ -55,6 +54,7 @@ public class DentistaController {
 
         return response;
     }
+    //FIND ALL
     @GetMapping
     public ResponseEntity<List<Dentista>> buscarTodos(){
         return ResponseEntity.ok(dentistaService.buscarTodos());

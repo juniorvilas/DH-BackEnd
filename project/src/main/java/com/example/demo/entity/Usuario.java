@@ -44,7 +44,7 @@ public class Usuario {
     }
 
 
-
+    //GETTERS AND SETTERS
     public Integer getId() {
         return id;
     }

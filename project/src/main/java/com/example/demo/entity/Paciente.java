@@ -1,7 +1,5 @@
 package com.example.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -27,6 +25,7 @@ public class Paciente implements Serializable {
     @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
     private Set<Consulta> consultas = new HashSet<>();
 
+    //CONTRUTOR VAZIO
     public Paciente() {
     }
 
@@ -49,6 +48,7 @@ public class Paciente implements Serializable {
         this.endereco = endereco;
     }
 
+    //GETTERS AND SETTERS
     public Integer getId() {
         return id;
     }

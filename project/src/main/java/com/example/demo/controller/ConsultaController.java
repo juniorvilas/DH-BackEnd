@@ -18,11 +18,8 @@ public class ConsultaController {
     private ConsultaService consultaService;
 
     //CREATE
-
     @PostMapping
     public ResponseEntity<Consulta> salvar(@RequestBody ConsultaDTO consultaDto) {
-//        consultaService.salvar(consultaDto);
-//        return new ResponseEntity<>(HttpStatus.OK);
         Consulta consulta = consultaService.salvar(consultaDto);
         return new ResponseEntity<>(consulta, HttpStatus.CREATED);
 
@@ -35,6 +32,7 @@ public class ConsultaController {
 
         return ResponseEntity.ok(consulta);
     }
+    //GET ALL
     @GetMapping
     public ResponseEntity<List<Consulta>> buscarTodos() {
         return ResponseEntity.ok(consultaService.buscarTodos());

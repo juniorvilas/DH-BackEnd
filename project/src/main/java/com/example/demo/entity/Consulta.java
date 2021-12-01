@@ -25,9 +25,11 @@ public class Consulta {
 
     private Date dataCadastro;
 
+    //CONSTRUTOR PADRÃO VAZIO
     public Consulta() {
     }
 
+    //CONSTRUTOR SEM ID
     public Consulta(Dentista dentista, Paciente paciente, Usuario usuario, Date dataCadastro) {
         this.dentista = dentista;
         this.paciente = paciente;
@@ -35,6 +37,7 @@ public class Consulta {
         this.dataCadastro = dataCadastro;
     }
 
+    //GETTERS AND SETTERS
     public Integer getId() {
         return id;
     }
